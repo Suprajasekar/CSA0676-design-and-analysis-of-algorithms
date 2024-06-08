@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Linear search algorithm (O(n))
+int linear_search(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i; // Target found, return index
+        }
+    }
+    return -1; // Target not found
+}
+
+// Function to measure the execution time of a non-recursive function
+void measure_time_non_recursive(int (*func)(int[], int, int), int arr[], int size, int target) {
+    clock_t start, end;
+    double cpu_time_used;
+
+    start = clock();
+    int result = func(arr, size, target);
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Linear search result: %d\n", result);
+    printf("Time taken (non-recursive): %f seconds\n\n", cpu_time_used);
+}
+
+int main() {
+    int size = 1000; // Adjust size as needed for demonstration
+    int *arr = (int *)malloc(size * sizeof(int));
+
+    // Initialize the array with random values
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 10000;
+    }
+
+    int target = arr[size - 1]; // Target to search for
+
+    // Measure and display time complexity for linear search
+    measure_time_non_recursive(linear_search, arr, size, target);
+
+    free(arr);
+    return 0;
+}
