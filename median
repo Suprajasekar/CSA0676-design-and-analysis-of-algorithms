@@ -1,0 +1,26 @@
+def findMedianSortedArrays(nums1, nums2):
+    merged = []
+    i = j = 0
+
+    # Merge the two arrays into a single sorted array
+    while i < len(nums1) and j < len(nums2):
+        if nums1[i] <= nums2[j]:
+            merged.append(nums1[i])
+            i += 1
+        else:
+            merged.append(nums2[j])
+            j += 1
+
+    # Append remaining elements from nums1 or nums2
+    merged.extend(nums1[i:])
+    merged.extend(nums2[j:])
+
+    total_length = len(merged)
+    if total_length % 2 == 0:
+        # If the total length is even, return the average of the middle two elements
+        middle_right = total_length // 2
+        middle_left = middle_right - 1
+        return (merged[middle_left] + merged[middle_right]) / 2
+    else:
+        # If the total length is odd, return the middle element
+        return merged[total_length // 2]
