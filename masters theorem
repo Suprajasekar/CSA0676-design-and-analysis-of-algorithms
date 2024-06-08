@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <math.h>
+
+// Master Theorem for solving recurrence relation
+void master_theorem(double a, double b, double k, double n) {
+    double c = log(a) / log(b);
+
+    if (k < pow(n, c)) {
+        printf("T(n) = O(n^%.2lf)\n", c);
+    } else if (k == pow(n, c)) {
+        printf("T(n) = O(n^%.2lf * log(n))\n", c);
+    } else {
+        printf("T(n) = O(n^%.2lf)\n", log(k) / log(n));
+    }
+}
+
+int main() {
+    double a = 2, b = 2, k = 2, n = 8; // Example values of a, b, k, n
+
+    printf("Using Master Theorem:\n");
+    master_theorem(a, b, k, n);
+
+    return 0;
+}
