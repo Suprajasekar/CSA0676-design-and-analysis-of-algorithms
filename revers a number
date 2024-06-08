@@ -1,0 +1,13 @@
+def reverse_number(n, reversed_n=0):
+    # Base case: if n is 0, return the reversed number
+    if n == 0:
+        return reversed_n
+    else:
+        # Recursive case: add the last digit of n to reversed_n and remove the last digit from n
+        reversed_n = reversed_n * 10 + n % 10
+        return reverse_number(n // 10, reversed_n)
+
+# Example usage
+number = 12345
+reversed_number = reverse_number(number)
+print(reversed_number)
