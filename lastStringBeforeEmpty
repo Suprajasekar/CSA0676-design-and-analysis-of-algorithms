@@ -1,0 +1,11 @@
+def lastStringBeforeEmpty(s):
+    while s:
+        previous_s = s  # Keep track of the string before the current operation
+        for char in 'abcdefghijklmnopqrstuvwxyz':
+            s = s.replace(char, '', 1)  # Remove the first occurrence of each character
+        if not s:  # If the string becomes empty, return the previous state
+            return previous_s
+
+# Example usage
+s = "aabcbbca"
+print(lastStringBeforeEmpty(s))
