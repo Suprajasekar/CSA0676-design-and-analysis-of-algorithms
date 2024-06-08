@@ -1,0 +1,25 @@
+def separate_odd_even(nums):
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        # Move left pointer until it points to an even number
+        while left < right and nums[left] % 2 == 0:
+            left += 1
+        
+        # Move right pointer until it points to an odd number
+        while left < right and nums[right] % 2 != 0:
+            right -= 1
+        
+        # Swap the elements pointed by the left and right pointers
+        nums[left], nums[right] = nums[right], nums[left]
+        
+        # Move both pointers inward
+        left += 1
+        right -= 1
+    
+    return nums
+
+# Example usage
+nums = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+separated_nums = separate_odd_even(nums)
+print(separated_nums)
