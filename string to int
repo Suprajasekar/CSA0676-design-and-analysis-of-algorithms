@@ -1,0 +1,29 @@
+def myAtoi(s: str) -> int:
+    INT_MAX = 2**31 - 1
+    INT_MIN = -2**31
+
+    # Step 1: Remove leading whitespace
+    i = 0
+    while i < len(s) and s[i] == ' ':
+        i += 1
+
+    # Step 2: Determine sign
+    sign = 1
+    if i < len(s) and (s[i] == '-' or s[i] == '+'):
+        sign = -1 if s[i] == '-' else 1
+        i += 1
+
+    # Step 3: Read digits until non-digit character or end of string
+    num = 0
+    while i < len(s) and s[i].isdigit():
+        num = num * 10 + int(s[i])
+        i += 1
+
+    # Step 4: Clamp the integer to the range
+    result = sign * num
+    if result < INT_MIN:
+        return INT_MIN
+    elif result > INT_MAX:
+        return INT_MAX
+    else:
+        return result
