@@ -1,0 +1,44 @@
+from collections import defaultdict
+
+def smallestStringWithSwaps(s, pairs):
+    n = len(s)
+    parent = list(range(n))
+
+    def find(x):
+        if parent[x] != x:
+            parent[x] = find(parent[x])
+        return parent[x]
+
+    def union(x, y):
+        rootX = find(x)
+        rootY = find(y)
+        if rootX != rootY:
+            parent[rootY] = rootX
+
+    # Union all pairs
+    for a, b in pairs:
+        union(a, b)
+
+    # Group all indices by their root
+    components = defaultdict(list)
+    for i in range(n):
+        components[find(i)].append(i)
+
+    # Create the result array
+    res = list(s)
+
+    # Sort each component and place characters in the correct position
+    for indices in components.values():
+        chars = sorted(res[i] for i in indices)
+        for i, char in zip(sorted(indices), chars):
+            res[i] = char
+
+    return ''.join(res)
+
+# Example usage
+s = "dcab"
+pairs = [[0, 3], [1, 2]]
+print(smallestStringWithSwaps(s, pairs))  # Output: "bacd"
+
+
+
