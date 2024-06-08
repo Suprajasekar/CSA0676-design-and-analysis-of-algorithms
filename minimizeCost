@@ -1,0 +1,25 @@
+def minimizeCost(s):
+    from collections import Counter
+    
+    # Frequency counter for all characters in s
+    freq = Counter(s.replace('?', ''))
+    res = []
+
+    for char in s:
+        if char == '?':
+            # Find the least frequent letter
+            for c in 'abcdefghijklmnopqrstuvwxyz':
+                if freq[c] == 0:
+                    min_char = c
+                    break
+            # Update the frequency counter
+            freq[min_char] += 1
+            res.append(min_char)
+        else:
+            res.append(char)
+
+    return ''.join(res)
+
+# Example usage
+s = "ab?ac?"
+print(minimizeCost(s))
