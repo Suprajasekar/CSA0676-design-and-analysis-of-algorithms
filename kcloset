@@ -1,0 +1,20 @@
+import heapq
+
+def kClosest(points, k):
+    # Create a min-heap
+    heap = []
+    
+    # Calculate the distance and push it along with the point into the heap
+    for (x, y) in points:
+        distance = x * x + y * y  # We use the squared distance to avoid computing the square root
+        heapq.heappush(heap, (distance, (x, y)))
+    
+    # Extract the k smallest distances from the heap
+    result = [heapq.heappop(heap)[1] for _ in range(k)]
+    
+    return result
+
+# Example usage
+points = [[1, 3], [-2, 2], [5, 8], [0, 1]]
+k = 2
+print(kClosest(points, k))
