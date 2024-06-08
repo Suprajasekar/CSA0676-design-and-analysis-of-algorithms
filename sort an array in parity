@@ -1,0 +1,25 @@
+def sort_array_by_parity(nums):
+    # Initialize two pointers, one for even indices and one for odd indices
+    even_ptr, odd_ptr = 0, 1
+    n = len(nums)
+    
+    # Traverse the array
+    while even_ptr < n and odd_ptr < n:
+        # Find the next even element to place at even index
+        while even_ptr < n and nums[even_ptr] % 2 == 0:
+            even_ptr += 2
+        
+        # Find the next odd element to place at odd index
+        while odd_ptr < n and nums[odd_ptr] % 2 != 0:
+            odd_ptr += 2
+        
+        # Swap the elements at even and odd indices
+        if even_ptr < n and odd_ptr < n:
+            nums[even_ptr], nums[odd_ptr] = nums[odd_ptr], nums[even_ptr]
+    
+    return nums
+
+# Example usage
+nums = [4, 2, 5, 7]
+sorted_nums = sort_array_by_parity(nums)
+print(sorted_nums)
