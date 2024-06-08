@@ -1,0 +1,17 @@
+def is_palindrome(s, start, end):
+    # Base case: if the start index is greater than or equal to the end index, it's a palindrome
+    if start >= end:
+        return True
+    # Check if the characters at the start and end indices are the same
+    if s[start] == s[end]:
+        # Recur with the next start and previous end indices
+        return is_palindrome(s, start + 1, end - 1)
+    else:
+        return False
+
+a = "malayalam"
+if is_palindrome(a, 0, len(a) - 1):
+    print("palindrome")
+else:
+    print("not palindrome")
+
