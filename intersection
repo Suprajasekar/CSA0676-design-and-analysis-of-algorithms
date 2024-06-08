@@ -1,0 +1,17 @@
+def intersection(nums1, nums2):
+    # Convert both arrays to sets to remove duplicates
+    set1 = set(nums1)
+    set2 = set(nums2)
+    
+    # Find the intersection of the two sets
+    result_set = set1.intersection(set2)
+    
+    # Convert the result set back to a list
+    result = list(result_set)
+    
+    return result
+
+# Example usage
+nums1 = [1, 2, 2, 1]
+nums2 = [2, 2]
+print(intersection(nums1, nums2))  # Output: [2]
