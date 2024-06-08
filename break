@@ -1,0 +1,18 @@
+def canBreak(s1, s2):
+    # Sort both strings
+    sorted_s1 = sorted(s1)
+    sorted_s2 = sorted(s2)
+    
+    # Check if s1 can break s2
+    s1_breaks_s2 = all(c1 >= c2 for c1, c2 in zip(sorted_s1, sorted_s2))
+    
+    # Check if s2 can break s1
+    s2_breaks_s1 = all(c2 >= c1 for c2, c1 in zip(sorted_s2, sorted_s1))
+    
+    # Return true if either can break the other
+    return s1_breaks_s2 or s2_breaks_s1
+
+# Example usage
+s1 = "abc"
+s2 = "xya"
+print(canBreak(s1, s2))  # Output: True
