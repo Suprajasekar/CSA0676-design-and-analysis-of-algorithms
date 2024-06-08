@@ -1,0 +1,23 @@
+def length_of_longest_substring(s):
+    # Initialize variables
+    max_length = 0
+    start = 0
+    char_index_map = {}
+
+    # Iterate through the string
+    for i, char in enumerate(s):
+        # If the character is already in the map and its index is after the start of the current substring
+        if char in char_index_map and char_index_map[char] >= start:
+            # Update the start of the substring to the index after the last occurrence of the character
+            start = char_index_map[char] + 1
+
+        # Update the index of the current character
+        char_index_map[char] = i
+
+        # Calculate the length of the current substring
+        current_length = i - start + 1
+
+        # Update the maximum length if needed
+        max_length = max(max_length, current_length)
+
+    return max_length
