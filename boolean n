@@ -1,0 +1,8 @@
+CREATE PROCEDURE EvaluateBooleanExpression(IN expr VARCHAR(255), OUT result BOOLEAN)
+BEGIN
+    SET @query := CONCAT('SELECT (', expr, ') INTO @result');
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+    SET result = @result;
+END
