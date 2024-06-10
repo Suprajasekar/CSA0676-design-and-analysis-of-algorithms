@@ -1,0 +1,33 @@
+class BinaryMatrix:
+    def get(self, row: int, col: int) -> int:
+        # This method is provided by the problem statement.
+        pass
+
+    def dimensions(self) -> list:
+        # This method is provided by the problem statement.
+        pass
+
+def leftMostColumnWithOne(binaryMatrix: BinaryMatrix) -> int:
+    # Get the dimensions of the matrix
+    rows, cols = binaryMatrix.dimensions()
+    
+    # Start at the top-right corner
+    current_row = 0
+    current_col = cols - 1
+    
+    # To track the leftmost column with a 1
+    leftmost_column = -1
+    
+    # Traverse the matrix
+    while current_row < rows and current_col >= 0:
+        if binaryMatrix.get(current_row, current_col) == 1:
+            leftmost_column = current_col
+            current_col -= 1  # Move left
+        else:
+            current_row += 1  # Move down
+    
+    return leftmost_column
+
+# Example usage:
+# binaryMatrix = BinaryMatrix()  # This would be initialized in the actual environment
+# print(leftMostColumnWithOne(binaryMatrix))
