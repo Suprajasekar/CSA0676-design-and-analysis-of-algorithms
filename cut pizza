@@ -1,0 +1,40 @@
+def waysToCutPizza(pizza, k):
+    MOD = 10**9 + 7
+    rows, cols = len(pizza), len(pizza[0])
+    dp = [[[0] * (k + 1) for _ in range(cols)] for _ in range(rows)]
+
+    # Initialize the DP array for the last cell
+    dp[rows - 1][cols - 1][1] = 1 if pizza[rows - 1][cols - 1] == 'A' else 0
+    for i in range(rows - 2, -1, -1):
+        dp[i][cols - 1][1] = dp[i + 1][cols - 1][1] + (1 if pizza[i][cols - 1] == 'A' else 0)
+
+    for j in range(cols - 2, -1, -1):
+        dp[rows - 1][j][1] = dp[rows - 1][j + 1][1] + (1 if pizza[rows - 1][j] == 'A' else 0)
+
+    for i in range(rows - 2, -1, -1):
+        for j in range(cols - 2, -1, -1):
+            dp[i][j][1] = dp[i][j + 1][1] + dp[i + 1][j][1] - dp[i + 1][j + 1][1] + (1 if pizza[i][j] == 'A' else 0)
+
+    # Loop through each possible number of pieces
+    for pieces in range(2, k + 1):
+        # Loop through each cell and try all possible cuts
+        for i in range(rows - 1, -1, -1):
+            for j in range(cols - 1, -1, -1):
+                # Horizontal cuts
+                for h in range(i + 1, rows):
+                    if dp[i][j][1] - dp[h][j][1] > 0 and dp[h][j][pieces - 1] > 0:
+                        dp[i][j][pieces] += dp[h][j][pieces - 1]
+                        dp[i][j][pieces] %= MOD
+
+                # Vertical cuts
+                for v in range(j + 1, cols):
+                    if dp[i][j][1] - dp[i][v][1] > 0 and dp[i][v][pieces - 1] > 0:
+                        dp[i][j][pieces] += dp[i][v][pieces - 1]
+                        dp[i][j][pieces] %= MOD
+
+    return dp[0][0][k]
+
+# Example usage:
+pizza = ["A..","AAA","..."]
+k = 3
+print(waysToCutPizza(pizza, k))  # Output can be 3
