@@ -1,0 +1,31 @@
+def maxDiff(num):
+    str_num = str(num)
+
+    # Finding the maximum number by replacing a digit with 9
+    for digit in str_num:
+        if digit != '9':
+            max_num = str_num.replace(digit, '9')
+            break
+    else:
+        max_num = str_num  # All digits are 9
+    
+    # Finding the minimum number
+    if str_num[0] != '1':
+        min_num = str_num.replace(str_num[0], '1')
+    else:
+        for digit in str_num[1:]:
+            if digit != '0' and digit != '1':
+                min_num = str_num.replace(digit, '0')
+                break
+        else:
+            min_num = str_num  # All non-leading digits are 0 or 1
+    
+    # Convert to integers and calculate the difference
+    max_num = int(max_num)
+    min_num = int(min_num)
+    
+    return max_num - min_num
+
+# Example usage:
+num = 555
+print(maxDiff(num)) 
