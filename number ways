@@ -1,0 +1,29 @@
+MOD = 10**9 + 7
+
+def numberWays(hats):
+    n = len(hats)
+    all_masks = 1 << n  # 2^n possible states for n people
+    
+    # Create a list of hats preferred by each person
+    hat_to_people = [[] for _ in range(41)]
+    for person, hat_list in enumerate(hats):
+        for hat in hat_list:
+            hat_to_people[hat].append(person)
+    
+    # DP array
+    dp = [0] * all_masks
+    dp[0] = 1  # One way to assign hats when no one is assigned a hat
+    
+    # Iterate over each hat
+    for hat in range(1, 41):
+        # We use a reversed order to prevent overwriting dp states we are updating
+        for mask in range(all_masks - 1, -1, -1):
+            for person in hat_to_people[hat]:
+                if mask & (1 << person) == 0:  # If person has not been assigned a hat
+                    dp[mask | (1 << person)] = (dp[mask | (1 << person)] + dp[mask]) % MOD
+    
+    return dp[all_masks - 1]
+
+# Example usage:
+hats = [[3, 4], [4, 5], [5]]
+print(numberWays(hats))
