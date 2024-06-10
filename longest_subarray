@@ -1,0 +1,32 @@
+from collections import deque
+
+def longest_subarray(nums, limit):
+    maxDeque = deque()
+    minDeque = deque()
+    i = 0
+    max_length = 0
+
+    for j in range(len(nums)):
+        # Update maxDeque
+        while maxDeque and nums[maxDeque[-1]] <= nums[j]:
+            maxDeque.pop()
+        maxDeque.append(j)
+        
+        # Update minDeque
+        while minDeque and nums[minDeque[-1]] >= nums[j]:
+            minDeque.pop()
+        minDeque.append(j)
+        
+        # Ensure the current window [i, j] satisfies the limit condition
+        while nums[maxDeque[0]] - nums[minDeque[0]] > limit:
+            i += 1
+            # Remove elements out of the current window
+            if maxDeque[0] < i:
+                maxDeque.popleft()
+            if minDeque[0] < i:
+                minDeque.popleft()
+        
+        # Calculate the length of the current valid window
+        max_length = max(max_length, j - i + 1)
+    
+    return max_length
