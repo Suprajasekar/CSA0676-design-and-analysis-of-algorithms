@@ -1,0 +1,47 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def isValidSequence(root: TreeNode, arr: list) -> bool:
+    def dfs(node, idx):
+        # Base case: if node is None or index is out of bounds
+        if not node or idx >= len(arr):
+            return False
+        
+        # Check if the current node's value matches the current array value
+        if node.val != arr[idx]:
+            return False
+        
+        # Check if we are at a leaf node and the current value matches
+        if not node.left and not node.right:
+            return idx == len(arr) - 1
+        
+        # Recur for the left and right children
+        return dfs(node.left, idx + 1) or dfs(node.right, idx + 1)
+    
+    return dfs(root, 0)
+
+# Example usage:
+# Construct the binary tree:
+#     0
+#    / \
+#   1   0
+#  /|   |\
+# 0 1   0 0
+#   /   | \
+#  1    0  1
+root = TreeNode(0)
+root.left = TreeNode(1)
+root.right = TreeNode(0)
+root.left.left = TreeNode(0)
+root.left.right = TreeNode(1)
+root.left.right.left = TreeNode(1)
+root.right.left = TreeNode(0)
+root.right.right = TreeNode(0)
+root.right.right.left = TreeNode(0)
+root.right.right.right = TreeNode(1)
+
+arr = [0, 1, 0, 1]
+print(isValidSequence(root, arr))
