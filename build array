@@ -1,0 +1,22 @@
+def buildArray(target, n):
+    stack_operations = []
+    stack = []
+    i = 1
+
+    for num in target:
+        while not stack or stack[-1] != num:
+            stack.append(i)
+            stack_operations.append("Push")
+            i += 1
+        if stack[-1] == num:
+            stack.pop()
+            stack_operations.append("Pop")
+        if not stack:
+            break
+
+    return stack_operations
+
+# Example usage:
+target = [1, 3]
+n = 3
+print(buildArray(target, n))  # Output can be ["Push","Push","Pop","Push"]
