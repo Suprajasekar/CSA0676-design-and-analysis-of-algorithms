@@ -1,0 +1,17 @@
+ def count_elements(arr):
+    # Step 1: Convert the array to a set for O(1) lookups
+    elements_set = set(arr)
+    
+    # Step 2: Initialize a counter
+    count = 0
+    
+    # Step 3: Iterate through the array and count elements satisfying the condition
+    for x in arr:
+        if x + 1 in elements_set:
+            count += 1
+    
+    return count
+
+# Example usage
+arr = [1, 2, 3]
+print(count_elements(arr)) 
