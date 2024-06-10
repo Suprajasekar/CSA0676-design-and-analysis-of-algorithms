@@ -1,0 +1,13 @@
+def evaluate_boolean_expression(expr, variables):
+    # Replace variable names with their values in the expression
+    for var, value in variables.items():
+        expr = expr.replace(var, str(value))
+    
+    # Evaluate the expression and return the result
+    return eval(expr)
+
+# Example usage:
+variables = {'x': 1, 'y': 0, 'z': 1}
+expression = "(x and y) or z"
+result = evaluate_boolean_expression(expression, variables)
+print(result)  # Output should be True (1)
