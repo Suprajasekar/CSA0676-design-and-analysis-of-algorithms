@@ -1,0 +1,22 @@
+def sum_of_digits(num):
+    return sum(int(digit) for digit in str(num))
+
+def find_minimum_x(n, target):
+    if sum_of_digits(n) <= target:
+        return 0
+    
+    x = 0
+    increment = 1
+    
+    while sum_of_digits(n + x) > target:
+        digit = (n // increment) % 10
+        to_add = increment * ((10 - digit) % 10)
+        x += to_add
+        increment *= 10
+    
+    return x
+
+# Example usage:
+n = 48
+target = 6
+print(find_minimum_x(n, target))  # Output: 2 (since 48 + 2 = 50, and the sum of the digits of 50 is 5, which is <= 6)
