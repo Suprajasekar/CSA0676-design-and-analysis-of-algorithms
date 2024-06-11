@@ -1,0 +1,33 @@
+def destroy_sequential_targets(nums, space):
+    from collections import defaultdict
+
+    # Dictionary to count how many targets each remainder group has
+    remainder_count = defaultdict(int)
+    # Dictionary to store the smallest number for each remainder group
+    smallest_number = {}
+
+    for num in nums:
+        remainder = num % space
+        remainder_count[remainder] += 1
+        if remainder not in smallest_number or num < smallest_number[remainder]:
+            smallest_number[remainder] = num
+
+    # Find the remainder group with the maximum targets
+    max_targets = 0
+    best_remainder = None
+
+    for remainder, count in remainder_count.items():
+        if count > max_targets:
+            max_targets = count
+            best_remainder = remainder
+        elif count == max_targets:
+            if smallest_number[remainder] < smallest_number[best_remainder]:
+                best_remainder = remainder
+
+    # Return the smallest number in the best remainder group
+    return smallest_number[best_remainder]
+
+# Example usage:
+nums = [3, 7, 8, 1, 1, 5]
+space = 2
+print(destroy_sequential_targets(nums, space))  # Output: 1
