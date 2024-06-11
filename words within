@@ -1,0 +1,27 @@
+def words_within_two_edits(queries, dictionary):
+    def is_within_two_edits(word1, word2):
+        # Check if word1 and word2 differ by at most two characters
+        if len(word1) != len(word2):
+            return False
+        diff_count = 0
+        for i in range(len(word1)):
+            if word1[i] != word2[i]:
+                diff_count += 1
+                if diff_count > 2:
+                    return False
+        return diff_count <= 2
+    
+    result = []
+    
+    for query in queries:
+        for dict_word in dictionary:
+            if is_within_two_edits(query, dict_word):
+                result.append(query)
+                break
+    
+    return result
+
+# Example usage:
+queries = ["word", "note", "wood", "words"]
+dictionary = ["word", "note", "mode"]
+print(words_within_two_edits(queries, dictionary))  # Output: ["word", "note", "wood"]
