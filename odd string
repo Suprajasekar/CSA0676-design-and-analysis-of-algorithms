@@ -1,0 +1,36 @@
+def odd_string_difference(words):
+    # Helper function to compute the difference array for a given word
+    def compute_difference_array(word):
+        return [ord(word[i + 1]) - ord(word[i]) for i in range(len(word) - 1)]
+    
+    # Dictionary to store the frequency of each difference array
+    difference_dict = {}
+    
+    # List to store the difference arrays and their corresponding words
+    difference_list = []
+    
+    # Compute the difference array for each word and populate the dictionary
+    for word in words:
+        diff_array = compute_difference_array(word)
+        difference_list.append((diff_array, word))
+        diff_tuple = tuple(diff_array)  # Convert list to tuple to use as a dictionary key
+        if diff_tuple in difference_dict:
+            difference_dict[diff_tuple] += 1
+        else:
+            difference_dict[diff_tuple] = 1
+    
+    # Find the unique difference array
+    unique_diff_array = None
+    for diff_array, count in difference_dict.items():
+        if count == 1:
+            unique_diff_array = diff_array
+            break
+    
+    # Find and return the word with the unique difference array
+    for diff_array, word in difference_list:
+        if diff_array == list(unique_diff_array):
+            return word
+
+# Example usage:
+words = ["adc", "wzy", "abc"]
+print(odd_string_difference(words))  # Output: "abc"
