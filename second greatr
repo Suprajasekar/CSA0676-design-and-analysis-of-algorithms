@@ -1,0 +1,31 @@
+from heapq import heappush, heappop
+
+def second_greater(nums):
+    n = len(nums)
+    answer = [-1] * n
+    stack1 = []
+    stack2 = []
+    
+    for i, num in enumerate(nums):
+        # Process stack2 to find the second greater element
+        while stack2 and stack2[0][0] <= num:
+            _, idx = heappop(stack2)
+            answer[idx] = num
+        
+        # Process stack1 to find the next greater element
+        temp = []
+        while stack1 and nums[stack1[-1]] < num:
+            temp.append(stack1.pop())
+        
+        # Move elements from temp to stack2 to find the second greater element later
+        for idx in temp:
+            heappush(stack2, (nums[idx], idx))
+        
+        # Add the current element index to stack1
+        stack1.append(i)
+    
+    return answer
+
+# Example usage:
+nums = [1, 2, 4, 3]
+print(second_greater(nums))  # Output: [4, 3, -1, -1]
