@@ -1,0 +1,43 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeTwoLists(list1, list2):
+    # Create a dummy node to simplify edge cases
+    dummy = ListNode()
+    # Tail pointer for the merged list
+    tail = dummy
+    
+    # Traverse both lists
+    while list1 and list2:
+        if list1.val < list2.val:
+            tail.next = list1
+            list1 = list1.next
+        else:
+            tail.next = list2
+            list2 = list2.next
+        tail = tail.next
+    
+    # Attach the remaining nodes
+    if list1:
+        tail.next = list1
+    elif list2:
+        tail.next = list2
+    
+    # The head of the merged list is the next of dummy node
+    return dummy.next
+
+# Helper function to print the linked list
+def printList(node):
+    while node:
+        print(node.val, end=" -> ")
+        node = node.next
+    print("None")
+
+# Example usage
+# Creating two sample sorted linked lists
+list1 = ListNode(1, ListNode(3, ListNode(5)))
+list2 = ListNode(2, ListNode(4, ListNode(6)))
+
+# Merging the lists
