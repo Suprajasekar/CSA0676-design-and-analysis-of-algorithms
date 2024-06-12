@@ -1,0 +1,47 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def insertionSortList(head):
+    dummy = ListNode(float("-inf"))  # Dummy node to mark the beginning of the sorted list
+    dummy.next = head
+    
+    current = head  # Pointer to traverse the list
+    
+    while current and current.next:
+        if current.val <= current.next.val:
+            current = current.next  # Move to the next node
+        else:
+            prev = dummy  # Pointer to traverse the sorted part of the list
+            while prev.next.val < current.next.val:
+                prev = prev.next
+            
+            # Insert current.next node after prev
+            temp = current.next
+            current.next = temp.next
+            temp.next = prev.next
+            prev.next = temp
+    
+    return dummy.next
+
+# Helper function to print the linked list
+def printList(node):
+    while node:
+        print(node.val, end=" -> ")
+        node = node.next
+    print("None")
+
+# Example usage
+head = ListNode(4)
+head.next = ListNode(2)
+head.next.next = ListNode(1)
+head.next.next.next = ListNode(3)
+
+print("Original linked list:")
+printList(head)
+
+sorted_head = insertionSortList(head)
+
+print("\nLinked list after insertion sort:")
+printList(sorted_head)
