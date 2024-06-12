@@ -1,0 +1,36 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def sortedArrayToBST(nums):
+    if not nums:
+        return None
+    
+    # Find the middle element of the array
+    mid = len(nums) // 2
+    
+    # Create a new node with the middle element as the root
+    root = TreeNode(nums[mid])
+    
+    # Recursively construct the left subtree using the left half of the array
+    root.left = sortedArrayToBST(nums[:mid])
+    
+    # Recursively construct the right subtree using the right half of the array
+    root.right = sortedArrayToBST(nums[mid + 1:])
+    
+    return root
+
+def inorderTraversal(root):
+    if root:
+        inorderTraversal(root.left)
+        print(root.val, end=" ")
+        inorderTraversal(root.right)
+
+# Example usage
+nums = [-10, -3, 0, 5, 9]
+root = sortedArrayToBST(nums)
+
+print("Inorder traversal of the constructed BST:")
+inorderTraversal(root)
