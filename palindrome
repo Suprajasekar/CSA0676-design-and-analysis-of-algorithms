@@ -1,0 +1,20 @@
+def is_palindrome(x):
+    # A negative number or a number ending with 0 (but not 0 itself) cannot be a palindrome
+    if x < 0 or (x % 10 == 0 and x != 0):
+        return False
+    
+    reversed_half = 0
+    while x > reversed_half:
+        reversed_half = reversed_half * 10 + x % 10
+        x //= 10
+    
+    # When the length is an odd number, we can get rid of the middle digit by reversed_half // 10
+    # For example when the input is 12321, at the end of the loop we get x = 12 and reversed_half = 123,
+    # Since the middle digit doesn't matter in palidrome (it will always equal to itself), we can simply get rid of it.
+    return x == reversed_half or x == reversed_half // 10
+
+# Example usage:
+print(is_palindrome(121))  # Output: True
+print(is_palindrome(-121)) # Output: False
+print(is_palindrome(10))   # Output: False
+print(is_palindrome(12321))# Output: True
