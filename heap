@@ -1,0 +1,50 @@
+import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeKLists(lists):
+    # Create a min-heap
+    heap = []
+    
+    # Initialize the heap with the head of each list
+    for i, node in enumerate(lists):
+        if node:
+            heapq.heappush(heap, (node.val, i, node))
+    
+    # Dummy node to start the merged list
+    dummy = ListNode()
+    current = dummy
+    
+    while heap:
+        val, i, node = heapq.heappop(heap)
+        current.next = ListNode(val)
+        current = current.next
+        node = node.next
+        if node:
+            heapq.heappush(heap, (node.val, i, node))
+    
+    return dummy.next
+
+# Helper function to print the linked list
+def printList(node):
+    while node:
+        print(node.val, end=" -> ")
+        node = node.next
+    print("None")
+
+# Example usage
+# Creating sample sorted linked lists
+list1 = ListNode(1, ListNode(4, ListNode(5)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+list3 = ListNode(2, ListNode(6))
+
+lists = [list1, list2, list3]
+
+# Merging the lists
+merged_head = mergeKLists(lists)
+
+# Printing the merged linked list
+printList(merged_head)
