@@ -1,0 +1,22 @@
+def removeDuplicates(nums):
+    if not nums:
+        return 0
+    
+    # Initialize the first pointer
+    i = 0
+    
+    # Iterate through the array with the second pointer
+    for j in range(1, len(nums)):
+        # If the current element is different from the element at pointer i
+        if nums[j] != nums[i]:
+            i += 1
+            nums[i] = nums[j]
+    
+    # The length of the array with unique elements is i + 1
+    return i + 1
+
+# Example usage
+nums = [1, 1, 2, 2, 3, 4, 4, 5]
+length = removeDuplicates(nums)
+print(f"Length of array after removing duplicates: {length}")
+print(f"Array after removing duplicates: {nums[:length]}")
