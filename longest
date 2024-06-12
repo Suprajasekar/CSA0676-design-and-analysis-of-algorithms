@@ -1,0 +1,17 @@
+def length_of_longest_substring(s):
+    char_index = {}  # Dictionary to store the last seen index of characters
+    left = 0  # Left pointer for the sliding window
+    max_length = 0  # Variable to store the maximum length of substring
+
+    for right in range(len(s)):
+        if s[right] in char_index and char_index[s[right]] >= left:
+            # Move the left pointer to the right of the duplicate character's last seen index
+            left = char_index[s[right]] + 1
+        char_index[s[right]] = right  # Update the last seen index of the character
+        max_length = max(max_length, right - left + 1)  # Update the maximum length
+
+    return max_length
+
+# Example usage:
+s = "abcabcbb"
+print(length_of_longest_substring(s))  # Output: 3 (substring "abc")
