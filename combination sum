@@ -1,0 +1,19 @@
+stu = [2, 3, 6, 7]
+target = 7
+stu.sort()
+result = []
+current = []
+start = 0
+r = target
+stack = [(start, r, current[:])]
+while stack:
+    start, r, current = stack.pop()
+    if r == 0:
+        result.append(current)
+        continue
+    for i in range(start, len(stu)):
+        if stu[i] > r:
+            break  
+        new = current + [stu[i]]
+        stack.append((i, r - stu[i], new))
+print("All unique combinations are:", result)
