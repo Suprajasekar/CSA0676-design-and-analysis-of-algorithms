@@ -1,0 +1,15 @@
+def remove_nth_occurrence(lst, value, n):
+    count = 0
+    for i in range(len(lst)):
+        if lst[i] == value:
+            count += 1
+            if count == n:
+                return lst[:i] + lst[i+1:]
+    return lst
+
+# Example usage
+lst = [1, 2, 3, 4, 2, 5, 2]
+value_to_remove = 2
+n = 2
+result = remove_nth_occurrence(lst, value_to_remove, n)
+print(result)  # Output: [1, 2, 3, 4, 5, 2]
