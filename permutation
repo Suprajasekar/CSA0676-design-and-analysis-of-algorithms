@@ -1,0 +1,10 @@
+import itertools
+
+def all_permutations(s):
+    return list(itertools.permutations(s))
+
+# Example usage
+s = 'ABC'
+perms = all_permutations(s)
+for perm in perms:
+    print(''.join(perm))
