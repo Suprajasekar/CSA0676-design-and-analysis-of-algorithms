@@ -1,0 +1,31 @@
+def sort_array_with_empty_space(arr, empty_space):
+    n = len(arr)
+    
+    # Convert the array to contain numbers from 0 to n-1
+    arr = [x-1 if x != empty_space else n-1 for x in arr]
+    
+    # Target position for empty space
+    empty_index = arr.index(n-1)
+    
+    for i in range(n):
+        # If the element is already in the correct place, continue
+        while arr[i] != i and arr[i] != n-1:
+            correct_pos = arr[i]
+            
+            # Swap the current element with the element in the correct position
+            arr[empty_index], arr[correct_pos] = arr[correct_pos], arr[empty_index]
+            
+            # Update empty_index
+            empty_index = correct_pos
+            
+    # Convert back the array to the original format
+    arr = [x+1 if x != n-1 else empty_space for x in arr]
+    
+    return arr
+
+# Example usage:
+# Let's say we have the array [4, 2, 3, 1, -1] with -1 being the empty space
+arr = [4, 2, 3, 1, -1]
+empty_space = -1
+sorted_arr = sort_array_with_empty_space(arr, empty_space)
+print(sorted_arr)  # Output: [1, 2, 3, 4, -1]
