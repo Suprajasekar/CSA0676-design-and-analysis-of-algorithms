@@ -1,0 +1,35 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def get_heights(node):
+    if not node:
+        return -1
+    left_height = get_heights(node.left)
+    right_height = get_heights(node.right)
+    height = max(left_height, right_height) + 1
+    heights[node] = height
+    return height
+
+def get_height_excluding_subtree(node, excluded_node, current_height):
+    if node == excluded_node:
+        return -1
+    if not node:
+        return current_height
+    left_height = get_height_excluding_subtree(node.left, excluded_node, current_height + 1)
+    right_height = get_height_excluding_subtree(node.right, excluded_node, current_height + 1)
+    return max(left_height, right_height)
+
+def height_after_removal(root, queries):
+    global heights
+    heights = {}
+    get_heights(root)
+    
+    results = []
+    for node in queries:
+        new_height = get_height_excluding_subtree(root, node, -1)
+        results.append(new_height + 1)
+    
+    return results
