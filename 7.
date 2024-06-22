@@ -1,0 +1,35 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def sort_linked_list(head):
+    if not head or not head.next:
+        return head
+    
+    def merge(left, right):
+        if not left or not right:
+            return left or right
+        
+        if left.val < right.val:
+            left.next = merge(left.next, right)
+            return left
+        else:
+            right.next = merge(left, right.next)
+            return right
+    
+    def split(node):
+        if not node or not node.next:
+            return node
+        
+        slow, fast = node, node.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        mid = slow.next
+        slow.next = None
+        
+        return merge(split(node), split(mid))
+    
+    return split(head)
