@@ -1,0 +1,44 @@
+from collections import deque
+
+def update_matrix(mat):
+    rows, cols = len(mat), len(mat[0])
+    # Initialize distances with a large number except for cells containing 0
+    dist = [[float('inf')] * cols for _ in range(rows)]
+    
+    # Queue for BFS
+    queue = deque()
+    
+    # Initialize queue with all 0 cells
+    for r in range(rows):
+        for c in range(cols):
+            if mat[r][c] == 0:
+                dist[r][c] = 0
+                queue.append((r, c))
+    
+    # Directions for moving in the matrix (right, left, down, up)
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    
+    # BFS to update distances
+    while queue:
+        r, c = queue.popleft()
+        
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                # If a shorter path is found, update distance and add the cell to the queue
+                if dist[nr][nc] > dist[r][c] + 1:
+                    dist[nr][nc] = dist[r][c] + 1
+                    queue.append((nr, nc))
+    
+    return dist
+
+# Example usage:
+mat = [
+    [0, 0, 0],
+    [0, 1, 0],
+    [1, 1, 1]
+]
+
+result = update_matrix(mat)
+for row in result:
+    print(row)
