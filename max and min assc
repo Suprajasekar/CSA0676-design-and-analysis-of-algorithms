@@ -1,0 +1,6 @@
+arr = [2, 4, 6, 8, 10, 12, 14, 18]
+min_val = arr[0]
+max_val = arr[-1]
+
+print("Minimum value in the array:", min_val)
+print("Maximum value in the array:", max_val)
