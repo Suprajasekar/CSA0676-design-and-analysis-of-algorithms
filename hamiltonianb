@@ -1,0 +1,16 @@
+from itertools import permutations
+
+def hamiltonian_circuit(graph):
+    n = len(graph)
+    for path in permutations(range(n)):
+        if all(graph[path[i - 1]][path[i]] for i in range(n)):
+            return path + (path[0],)
+    return None
+
+# Example Usage
+graph = [[0, 1, 1, 1],
+         [1, 0, 1, 0],
+         [1, 1, 0, 1],
+         [1, 0, 1, 0]]
+
+print(hamiltonian_circuit(graph))
